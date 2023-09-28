@@ -11,5 +11,6 @@ install: root
 uninstall: root
 	rm /usr/bin/trial
 
-reset: root
+purge: uninstall
 	rm /tmp/trial
+	userdel trial

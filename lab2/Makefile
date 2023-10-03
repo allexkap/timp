@@ -12,5 +12,5 @@ uninstall: root
 	rm -f /usr/bin/trial
 
 purge: uninstall
-	rm -f /tmp/trial
+	rm -f /tmp/trial.*
 	userdel trial

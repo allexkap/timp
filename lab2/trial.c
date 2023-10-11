@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <string.h>
+
+#ifndef TIME
 #define LEFT 4
+#define TEXT "run(s)"
+#else
+#include <unistd.h>
+#include <signal.h>
+#define LEFT 20
+#define TEXT "second(s)"
+#endif
 
 
 int main() {
@@ -15,7 +24,7 @@ int main() {
     else {
         file = fopen("/tmp/trial.left", "w");
     }
-    fprintf(file, "%d", --left);
+    fprintf(file, "%d ", --left);
     fclose(file);
 
     if (left < 0) {
@@ -23,7 +32,20 @@ int main() {
         return 1;
     }
 
-    printf("%d runs left\n", left);
+    printf("%d "TEXT" left\n", left);
+
+#ifdef TIME
+    if (!fork()) {
+        for (pid_t ppid = getppid(); ppid == getppid();) {
+            FILE* file = fopen("/tmp/trial.left", "r+");
+            fprintf(file, "%d ", --left);
+            fclose(file);
+            if (left < 0) kill(ppid, SIGKILL);
+            sleep(1);
+        }
+        return 0;
+    }
+#endif
 
 
     char *name = NULL;

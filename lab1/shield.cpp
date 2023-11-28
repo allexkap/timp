@@ -14,14 +14,6 @@ void init() {
     std::ofstream("template.tbl");
 }
 
-void enable() {
-    std::filesystem::rename("template.tbl.bak", "template.tbl", global_error);
-}
-
-void disable() {
-    std::filesystem::rename("template.tbl", "template.tbl.bak", global_error);
-}
-
 int check(std::string filename) {
     std::ifstream file("template.tbl");
     if (!file.is_open()) return 0;
@@ -51,10 +43,10 @@ int main(int argc, char** argv) {
             init();
             break;
         case 'e':
-            enable();
+            std::filesystem::rename("template.tbl.bak", "template.tbl", global_error);
             break;
         case 'd':
-            disable();
+            std::filesystem::rename("template.tbl", "template.tbl.bak", global_error);
             break;
         case 't':
             std::ofstream(argv[2], std::ios::out);

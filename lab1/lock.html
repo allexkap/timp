@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br />
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br />
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris<br />
+    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor<br />
+    in reprehenderit in voluptate velit esse cillum dolore eu fugiat<br />
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident,<br />
+    sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
+    <p>
+        <input onkeydown="return Keycheck(event.key)" placeholder="Password" type="password" id="pswd" />
+        <input type="submit" value="Check" id="sub" onclick="check()" />
+    </p>
+</body>
+
+</html>
+<script>
+    const keyEventListener = (e) => {
+        if (e.key == "PrintScreen") {
+            navigator.clipboard.writeText("");
+            alert("Screenshots disabled!");
+        }
+    };
+
+    function lock() {
+        function off() { return false; }
+        window.oncontextmenu = off;
+        window.onselectstart = off;
+        window.ondragstart = off;
+        window.localStorage.setItem("blocked", true);
+        document.addEventListener("keyup", keyEventListener);
+    }
+
+    function unlock() {
+        function on() { return true; }
+        window.oncontextmenu = on;
+        window.onselectstart = on;
+        window.ondragstart = on;
+        window.localStorage.setItem("blocked", false);
+        document.removeEventListener("keyup", keyEventListener);
+    }
+
+    function check() {
+        if (document.getElementById("pswd").value != "test123") lock();
+        else unlock();
+    }
+
+    lock();
+</script>

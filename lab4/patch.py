@@ -3,7 +3,7 @@ import os
 
 code = (
     b'\x08\x84\xC0\x74\x72',
-    b'\x08\x84\xC0\x75\x72',
+    b'\x08\x84\xC0\x00\x00',
 )
 
 for entry in os.listdir('.'):

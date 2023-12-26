@@ -18,10 +18,10 @@ for entry in os.listdir('.'):
             elif c > 1:
                 print(f'{entry}: multiple matches')
             else:
-                print(f'{entry}: successfully')
-                data.replace(code[0], code[1])
+                data = data.replace(code[0], code[1])
                 file.seek(0)
                 file.write(data)
                 file.truncate()
+                print(f'{entry}: successfully')
     except Exception as e:
         print(f'{entry}: {e}')

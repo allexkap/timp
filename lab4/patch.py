@@ -3,7 +3,7 @@ from pathlib import Path
 
 code = (
     b'\x08\x84\xC0\x74\x72',
-    b'\x08\x84\xC0\x00\x00',
+    b'\x08\x84\xC0\x90\x90',
 )
 
 
@@ -25,10 +25,9 @@ for entry in Path('.').glob('*'):
             elif n > 1:
                 print(f'{entry}: {c["r"]}multiple matches{c[""]}')
             else:
-                data = data.replace(code[0], code[1])
-                file.seek(0)
-                file.write(data)
-                file.truncate()
+                pos = data.find(code[0])
+                file.seek(pos)
+                file.write(code[1])
                 print(f'{entry}: {c["g"]}successfully{c[""]}')
     except Exception as e:
         print(f'{entry}: {e}')
